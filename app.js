@@ -16,11 +16,11 @@ app.use(express.json());
 const router = express.Router();
 
 app.use(router);
-
+//genres route
 router.get('/genres', (req, res) => {
   res.json(db.data.genres);
 });
-
+//routes
 router.get('/artist/:id', (req, res) => {
   let id = Number(req.params.id);
   let r = db.data.artists.find(v => v.id === id);
@@ -139,5 +139,5 @@ router.get('/lists', async (req, res) => {
 
 await initDB();
 app.listen(3000, () => {
-  console.log(`server started at http://localhost:3000`);
+  console.log('server started at http://localhost:3000');
 });
