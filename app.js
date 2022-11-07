@@ -13,21 +13,21 @@ app.use(express.static(path.join(dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const router = express.Router();
+//const router = express.Router();
 
-app.use(router);
-//genres route
-router.get('/genres', (req, res) => {
+//app.use(router);
+//genres tst
+app.get('/genres', (req, res) => {
   res.json(db.data.genres);
 });
-//routes
-router.get('/artist/:id', (req, res) => {
+//search
+app.get('/artist/:id', (req, res) => {
   let id = Number(req.params.id);
   let r = db.data.artists.find(v => v.id === id);
   r ? res.json(r) : res.status(404).json({ error: 'no result' });
 });
 
-router.get('/artists', (req, res) => {
+app.get('/artists', (req, res) => {
   let n = Number(req.query.n);
   if (n > 100) {
     res.status(400).json({ error: 'n too large! (must <=100)' });
@@ -48,13 +48,13 @@ router.get('/artists', (req, res) => {
   res.json(result.length > 0 ? result : { error: 'no result' });
 });
 
-router.get('/track/:id', (req, res) => {
+app.get('/track/:id', (req, res) => {
   let id = Number(req.params.id);
   let r = db.data.tracks.find(v => v.id === id);
   r ? res.json(r) : res.status(404).json({ error: 'no result' });
 });
 
-router.get('/tracks', (req, res) => {
+app.get('/tracks', (req, res) => {
   let n = Number(req.query.n);
   if (n > 100) {
     res.status(400).json({ error: 'n too large! (must <=100)' });
@@ -74,8 +74,8 @@ router.get('/tracks', (req, res) => {
 
   res.json(result.length > 0 ? result : { error: 'no result' });
 });
-
-router.post('/list',
+//list
+app.post('/list',
   body('name').isString().trim().escape(),
   body('tracks').isArray(),
   async (req, res) => {
@@ -92,7 +92,7 @@ router.post('/list',
     res.json({ error: null });
   });
 
-router.put('/list',
+app.put('/list',
   body('name').isString().trim().escape(),
   body('tracks').isArray(),
   async (req, res) => {
@@ -113,7 +113,7 @@ router.put('/list',
     res.json({ error: null });
   });
 
-router.delete('/list', async (req, res) => {
+app.delete('/list', async (req, res) => {
   let index = db.data.lists.findIndex(v => v.name === req.query.name);
   if (index < 0) {
     res.status(404).json({ error: 'no result' });
@@ -124,7 +124,7 @@ router.delete('/list', async (req, res) => {
   res.json({ error: null });
 });
 
-router.get('/list', async (req, res) => {
+app.get('/list', async (req, res) => {
   let index = db.data.lists.findIndex(v => v.name === req.query.name);
   if (index < 0) {
     res.status(404).json({ error: 'no result' });
@@ -133,7 +133,7 @@ router.get('/list', async (req, res) => {
   res.json(db.data.lists[index].tracks);
 });
 
-router.get('/lists', async (req, res) => {
+app.get('/lists', async (req, res) => {
   res.json(db.data.lists);
 });
 
