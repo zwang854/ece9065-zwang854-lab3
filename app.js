@@ -86,7 +86,7 @@ app.post('/list',
     db.data.lists.push({
       name: req.body.name,
       tracks: req.body.tracks,
-      playTime: 0
+
     });
     await db.write();
     res.json({ error: null });
