@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ECE 9065 Web App Development Lab #3</title>
+    <link href="/styles/main.css" rel="stylesheet">
+    <script src="/js/index.js"></script>
+</head>
+<body>
+
+<h1 class="text-center">ECE 9065 Web App Development Lab #3</h1>
+
+<header>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="lists.html">Lists</a>
+        <a href="genres.html">Genres</a>
+    </nav>
+</header>
+
+<main>
+
+    <h2>Search:</h2>
+
+    <form id="f">
+        <input type="search" required id="search" placeholder="search...">
+        <input type="number" min="1" max="100" step="1" required id="n" value="10" placeholder="n (0-100)">
+        <select id="type">
+            <option>artist</option>
+            <option>track</option>
+        </select>
+        <button>Search</button>
+    </form>
+
+    <div id="result">
+
+    </div>
+</main>
+
+</body>
+</html>
