@@ -83,6 +83,9 @@ app.post('/list',
     if (!errors.isEmpty()) {
       return res.status(400).json({ error: errors.array() });
     }
+    if (db.data.lists.find(v => v.name === req.body.name)) {
+      return res.status(400).json({ error: 'name already exist' });
+    }
     db.data.lists.push({
       name: req.body.name,
       tracks: req.body.tracks,
