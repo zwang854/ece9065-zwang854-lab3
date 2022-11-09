@@ -78,18 +78,21 @@ app.get('/tracks', (req, res) => {
 app.post('/list',
   body('name').isString().trim().escape(),
   body('tracks').isArray(),
+  //
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ error: errors.array() });
     }
+    //same list name
     if (db.data.lists.find(v => v.name === req.body.name)) {
       return res.status(400).json({ error: 'name already exist' });
     }
     db.data.lists.push({
       name: req.body.name,
       tracks: req.body.tracks,
-
+      //playtime
+      playTime: getTotalPlayTime(req.body.tracks)
     });
     await db.write();
     res.json({ error: null });
@@ -110,7 +113,8 @@ app.put('/list',
     }
     db.data.lists[index] = {
       ...db.data.lists[index],
-      tracks: req.body.tracks
+      tracks: req.body.tracks,
+      playTime: getTotalPlayTime(req.body.tracks)
     };
     await db.write();
     res.json({ error: null });
@@ -144,3 +148,15 @@ await initDB();
 app.listen(3000, () => {
   console.log('server started at http://localhost:3000');
 });
+//total playtime
+function getTotalPlayTime (tracks) {
+  let time = 0;
+  for (let tid of tracks) {
+    let t = db.data.tracks.find(v => v.id === tid);
+    if (t) {
+      let [min, sec] = t.track_duration.split(':').map(v => Number(v));
+      time += (min * 60 + sec);
+    }
+  }
+  return new Date(time * 1000).toISOString().substr(11, 8);
+}

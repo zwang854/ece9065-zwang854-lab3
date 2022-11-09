@@ -32,7 +32,7 @@ window.onload = function () {
 <button type="button" id="s4">By length</button>
 </div>
            <div><button type="button" class="edit">Edit</button>&nbsp;<button type="button" class="delete">Delete</button></div>
-          
+          <div><b>Playtime</b>: ${r.playTime}</div>
           <div><b>Tracks</b>: </div>
           `;
 
