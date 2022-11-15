@@ -143,7 +143,7 @@ app.get('/list', async (req, res) => {
 app.get('/lists', async (req, res) => {
   res.json(db.data.lists);
 });
-
+//db
 await initDB();
 app.listen(3000, () => {
   console.log('server started at http://localhost:3000');
