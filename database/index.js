@@ -23,15 +23,15 @@ export async function initDB () {
       name: v.title,
       parentId: v.parent
     }));
-    console.log('init db: albums...');
-    db.data.albums = (await parseCsv(join(__dirname, '../lab3-data/raw_albums.csv'))).map(v => ({
-      id: v.album_id,
-      name: v.album_title,
-      image: v.album_image_file,
-      url: v.album_url,
-      artist: v.artist_name,
-      tracks: v.album_tracks
-    }));
+    // console.log('init db: albums...');
+    // db.data.albums = (await parseCsv(join(__dirname, '../lab3-data/raw_albums.csv'))).map(v => ({
+    //   id: v.album_id,
+    //   name: v.album_title,
+    //   image: v.album_image_file,
+    //   url: v.album_url,
+    //   artist: v.artist_name,
+    //   tracks: v.album_tracks
+    // }));
     console.log('init db: artists...');
     db.data.artists = (await parseCsv(join(__dirname, '../lab3-data/raw_artists.csv'))).map(v => ({
       id: v.artist_id,

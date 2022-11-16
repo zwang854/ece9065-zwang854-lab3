@@ -76,7 +76,7 @@ app.get('/tracks', (req, res) => {
 });
 //list
 app.post('/list',
-  body('name').isString().trim().escape(),
+  body('name').isString().trim(),
   body('tracks').isArray(),
   //
   async (req, res) => {
@@ -99,7 +99,7 @@ app.post('/list',
   });
 
 app.put('/list',
-  body('name').isString().trim().escape(),
+  body('name').isString().trim(),
   body('tracks').isArray(),
   async (req, res) => {
     const errors = validationResult(req);
@@ -130,16 +130,9 @@ app.delete('/list', async (req, res) => {
   await db.write();
   res.json({ error: null });
 });
+//
 
-app.get('/list', async (req, res) => {
-  let index = db.data.lists.findIndex(v => v.name === req.query.name);
-  if (index < 0) {
-    res.status(404).json({ error: 'no result' });
-    return;
-  }
-  res.json(db.data.lists[index].tracks);
-});
-
+//show
 app.get('/lists', async (req, res) => {
   res.json(db.data.lists);
 });
